@@ -2,11 +2,11 @@ from flask import Flask, send_from_directory, render_template, jsonify, abort, s
 import os
 import zipfile
 import io
+import markdown
 from werkzeug.utils import safe_join
 
-
 app = Flask(__name__)
-VAULT_DIR = '/path/to/vault'
+VAULT_DIR = '/home/kai/Documents/plans'
 
 @app.route('/')
 def index():
@@ -31,6 +31,8 @@ def view_file(filename):
     try:
         with open(file_path, 'r', encoding='utf-8') as f:
             content = f.read()
+        if filename.endswith('.md'):
+            content = markdown.markdown(content)
         return jsonify({"content": content})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
