@@ -6,6 +6,8 @@ import markdown
 from werkzeug.utils import safe_join
 
 app = Flask(__name__)
+
+# Change path to your obsidian vault
 VAULT_DIR = '/home/kai/Documents/plans'
 
 @app.route('/')
